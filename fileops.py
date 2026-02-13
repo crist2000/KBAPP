@@ -1,0 +1,13 @@
+import os
+
+if __name__ == '__main__':
+    print("Not runnable file. Run mainform.py instead")
+else:
+
+    def fileExists(filepath):
+        if os.path.exists(filepath):
+            return True
+        else:
+            print(f"File {filepath} does not exist")
+            return False
+

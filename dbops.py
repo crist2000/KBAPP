@@ -63,6 +63,17 @@ else:
             except:
                 print(f"{query} run failed. Check SQL statement")
 
+        def executeInsert(self, query):
+            try:
+                if self.cursor is None:
+                    print("Cursor is null. Query execution aborted")
+                else:
+                    self.cursor.execute(query)
+                    self.cnx.commit()
+
+            except:
+                print(f"{query} run failed. Check SQL statement")
+
         def __enter__(self):
             return self
 

@@ -1,8 +1,11 @@
+from gui.actions import *
 from mainconst import *
 from dbops import *
 from kbdata import *
 import widgets as gui
 import actions as do
+from WindowParam import *
+from InsertForm import *
 
 startY = 10
 startX = 10
@@ -12,6 +15,10 @@ resultX = 100
 def clearAll():
     do.clearAll(lab_res_list)
     do.clearAll(lab_entry_list)
+
+def doSubmit():
+    sql = do.makeSql(entry_clt, entry_err)
+    doSql(sql)
 
 def doSql(sql_all):
     with dBops(ACCDB, db_filepath) as dbo:
@@ -23,24 +30,26 @@ def doSql(sql_all):
         lab_res_cse.setTxt(raw_data.cause)
         lab_res_fix.setTxt(raw_data.fix)
 
-def doSubmit():
-    sql = do.makeSql(entry_clt, entry_err)
-    doSql(sql)
+def createWindowInsert():
+    createWindow(window_param_insert)
+
 
 #make main window
-main_form = gui.make_main(main_window_size, "Knowledge Base", bg_color, False)
+btn_actions_main = {"Submit": doSubmit, "Clear": clearAll, "Insert": createWindowInsert}
+labels_main = ["CLIENT", "ERROR"]
+
+window_param_main = WindowParam(main_window_size, "Knowledge Base", bg_color, False)
+window_param_insert = WindowParam(sub_window_size, "Insert Data", bg_color, False)
+
+main_form = gui.make_main(window_param_main)
 
 #GUI control elements
-gui.Label(main_form, "CLIENT", bg_color, startX, startY, label_font)
-gui.Label(main_form, "ERROR", bg_color, 100, startY, label_font)
+gui.make_labels(main_form, labels_main, 10, 10, 0, 30)
+gui.make_buttons(main_form, btn_actions_main, 200, 40, 100, 0)
 
-entry_clt = gui.Entry(main_form, startX, startY + offsetY)
-entry_err = gui.Entry(main_form, 100, startY + offsetY)
+entry_clt = gui.Entry(main_form, 90, 20)
+entry_err = gui.Entry(main_form, 90, 50)
 lab_entry_list = [entry_clt, entry_err]
-
-gui.Button(main_form, "Submit", bg_color, 200, startY + offsetY, doSubmit)
-gui.Button(main_form, "Clear", bg_color, 300, startY + offsetY, clearAll)
-gui.Button(main_form, "New", bg_color, 400, startY + offsetY, clearAll)
 
 #SQL result
 lab_res_clt = gui.Label(main_form, "", bg_color, 10, resultX, label_font_result)

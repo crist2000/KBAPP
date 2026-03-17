@@ -2,45 +2,8 @@ import tkinter as tk
 from mainconst import *
 
 if __name__ == '__main__':
-    print("Not runnable file. Run main.py instead")
+    print("Not runnable file. Run mainform.py instead")
 else:
-
-    def make_main(window_param):  # size:str, title:str, color:str, resizable = True
-        form = tk.Tk()
-        form.geometry(window_param.size)
-        form.title(window_param.title)
-        form.configure(background=window_param.color)
-        form.resizable(window_param.resizable, window_param.resizable)
-        return form
-
-    def make_sub(window_param):
-        top = tk.Toplevel()
-        top.title(window_param.title)
-        top.geometry(window_param.size)
-        top.configure(background=window_param.color)
-        top.resizable(window_param.resizable, window_param.resizable)
-        return top
-
-    def make_buttons(form, button_dict, startX, startY, offsetX, offsetY):
-        x = startX
-        y = startY
-
-        for key, value in button_dict.items():
-            Button(form, key, bg_color, x, y, value)
-            x += offsetX
-            y += offsetY
-
-    def make_labels(form, lable_list, startX, startY, offsetX, offsetY):
-        x = startX
-        y = startY
-
-        for value in lable_list:
-            Label(form, value, bg_color, x, y, label_font)
-            x += offsetX
-            y += offsetY
-
-
-
 
     class Label:
         lable = None

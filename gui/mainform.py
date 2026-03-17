@@ -5,7 +5,7 @@ from kbdata import *
 import widgets as gui
 import actions as do
 from WindowParam import *
-from InsertForm import *
+from InsertForm import createWindow
 
 startY = 10
 startX = 10
@@ -22,7 +22,7 @@ def doSubmit():
 
 def doSql(sql_all):
     with dBops(ACCDB, db_filepath) as dbo:
-        raw_data = kbData(dbo.executeQuery(sql_all))
+        raw_data = kbData(dbo.executeSelect(sql_all))
 
         lab_res_clt.setTxt(raw_data.client)
         lab_res_prd.setTxt(raw_data.prod)
@@ -33,7 +33,6 @@ def doSql(sql_all):
 def createWindowInsert():
     createWindow(window_param_insert)
 
-
 #make main window
 btn_actions_main = {"Submit": doSubmit, "Clear": clearAll, "Insert": createWindowInsert}
 labels_main = ["CLIENT", "ERROR"]
@@ -41,11 +40,11 @@ labels_main = ["CLIENT", "ERROR"]
 window_param_main = WindowParam(main_window_size, "Knowledge Base", bg_color, False)
 window_param_insert = WindowParam(sub_window_size, "Insert Data", bg_color, False)
 
-main_form = gui.make_main(window_param_main)
+main_form = do.make_main(window_param_main)
 
 #GUI control elements
-gui.make_labels(main_form, labels_main, 10, 10, 0, 30)
-gui.make_buttons(main_form, btn_actions_main, 200, 40, 100, 0)
+do.make_labels(main_form, labels_main, 10, 10, 0, 30)
+do.make_buttons(main_form, btn_actions_main, 200, 40, 100, 0)
 
 entry_clt = gui.Entry(main_form, 90, 20)
 entry_err = gui.Entry(main_form, 90, 50)

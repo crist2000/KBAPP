@@ -1,15 +1,12 @@
 import widgets as gui
 import actions as do
-from kbdata import *
 from dbops import *
 from mainconst import *
-from WindowParam import *
-
-values_insert = []
 
 if __name__ == '__main__':
-    print("Not runnable file. Run main.py instead")
+    print("Not runnable file. Run mainform.py instead")
 else:
+    values_insert = []
 
     def clearAll():
         do.clearAll(values_insert)
@@ -19,15 +16,14 @@ else:
         with dBops(ACCDB, db_filepath) as dbo:
             dbo.executeInsert(sql)
 
-    bg_color = "#c2ccc6"
     btn_actions_insert = {"Insert": doInsert, "Clear": clearAll}
     labels_insert = ["CLIENT", "PRODUCT", "ERROR", "CAUSE", "SOLUTION"]
 
     def createWindow(window_param):
-        sub_form = gui.make_main(window_param)
+        sub_form = do.make_main(window_param)
 
-        gui.make_buttons(sub_form, btn_actions_insert, 200, 20, 100, 0)
-        gui.make_labels(sub_form, labels_insert, 10, 10, 0, 30)
+        do.make_buttons(sub_form, btn_actions_insert, 200, 20, 100, 0)
+        do.make_labels(sub_form, labels_insert, 10, 10, 0, 30)
 
         entry_clt = gui.Entry(sub_form, 90, 20)
         entry_prd = gui.Entry(sub_form, 90, 50)

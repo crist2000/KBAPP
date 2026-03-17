@@ -5,7 +5,7 @@ ACCDB = "accdb"
 MSSQL = "mssql"
 
 if __name__ == '__main__':
-    print("Not runnable file. Run main.py instead")
+    print("Not runnable file. Run mainform.py instead")
 else:
 
     class dBops:
@@ -44,7 +44,7 @@ else:
                 print("Unsupported database type")
                 return
 
-        def executeQuery(self, query):
+        def executeSelect(self, query):
             try:
                 if self.cursor is None:
                     print("Cursor is null. Query execution aborted")
@@ -55,9 +55,7 @@ else:
                     sql_result = []
                     for row in self.cursor.fetchall():
                         sql_result.append(row)
-                        #print(row)
 
-                    #print(sql_result)
                     return sql_result
 
             except:
@@ -74,6 +72,7 @@ else:
             except:
                 print(f"{query} run failed. Check SQL statement")
 
+        #to be used with the 'with' statement.
         def __enter__(self):
             return self
 

@@ -14,6 +14,4 @@ else:
 
     def GetPythonArchType():
         type = struct.calcsize("P") * 8
-        print (type)
-
         return type

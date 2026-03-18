@@ -1,1 +1,1 @@
-python main.py
+"C:\Python\3.14.2 64bit\python.exe" main.py

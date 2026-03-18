@@ -1,4 +1,5 @@
-from gui.actions import *
+# Create Main window
+
 from mainconst import *
 from dbops import *
 from kbdata import *
@@ -6,11 +7,6 @@ import widgets as gui
 import actions as do
 from WindowParam import *
 from InsertForm import createWindow
-
-startY = 10
-startX = 10
-offsetY = 30
-resultX = 100
 
 def clearAll():
     do.clearAll(lab_res_list)
@@ -37,25 +33,31 @@ def createWindowInsert():
 btn_actions_main = {"Submit": doSubmit, "Clear": clearAll, "Insert": createWindowInsert}
 labels_main = ["CLIENT", "ERROR"]
 
-window_param_main = WindowParam(main_window_size, "Knowledge Base", bg_color, False)
+window_param_main = WindowParam(main_window_size, "Knowledge Base", bg_color, True)
 window_param_insert = WindowParam(sub_window_size, "Insert Data", bg_color, False)
 
 main_form = do.make_main(window_param_main)
 
 #GUI control elements
-do.make_labels(main_form, labels_main, 10, 10, 0, 30)
-do.make_buttons(main_form, btn_actions_main, 200, 40, 100, 0)
+startY = LeftUpPos["Y"]
+startX = LeftUpPos["X"]
 
-entry_clt = gui.Entry(main_form, 90, 20)
-entry_err = gui.Entry(main_form, 90, 50)
+do.make_labels(main_form, labels_main, startX, LeftUpPos["Y"], LabelOffset["X"], LabelOffset["Y"])
+do.make_buttons(main_form, btn_actions_main, UpMidPos["X"], UpMidPos["Y"] + label_alignY, BtnOffset["X"], BtnOffset["Y"])
+
+entry_clt = gui.Entry(main_form, startX + EntryOffset["X"], LeftUpPos["Y"] + label_alignY)
+entry_err = gui.Entry(main_form, startX + EntryOffset["X"], LeftUpPos["Y"] + EntryOffset["Y"] + label_alignY)
 lab_entry_list = [entry_clt, entry_err]
 
 #SQL result
-lab_res_clt = gui.Label(main_form, "", bg_color, 10, resultX, label_font_result)
-lab_res_prd = gui.Label(main_form, "", bg_color, 70, resultX, label_font_result)
-lab_res_err = gui.Label(main_form, "", bg_color, 150, resultX, label_font_result)
-lab_res_cse = gui.Label(main_form, "", bg_color, 450, resultX, label_font_result)
-lab_res_fix = gui.Label(main_form, "", bg_color, 750, resultX, label_font_result)
+x = LefMidPos["X"]
+y = LefMidPos["Y"]
+
+lab_res_clt = gui.Label(main_form, "", bg_color, x, y, label_font_result)
+lab_res_prd = gui.Label(main_form, "", bg_color, x + WidgetSize["Short"], y, label_font_result)
+lab_res_err = gui.Label(main_form, "", bg_color, x + WidgetSize["Mid"], y, label_font_result)
+lab_res_cse = gui.Label(main_form, "", bg_color, x + WidgetSize["Mid"] + WidgetSize["Long"], y, label_font_result)
+lab_res_fix = gui.Label(main_form, "", bg_color, x + WidgetSize["Mid"] + 2 * WidgetSize["Long"], y, label_font_result)
 lab_res_list = [lab_res_clt, lab_res_prd, lab_res_err, lab_res_cse, lab_res_fix]
 
 main_form.mainloop()

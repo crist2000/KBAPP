@@ -7,6 +7,10 @@ if __name__ == '__main__':
     print("Not runnable file. Run mainform.py instead")
 else:
     values_insert = []
+    startY = LeftUpPos["Y"]
+    startX = LeftUpPos["X"] + EntryOffset["X"]
+    offsetY = LabelOffset["Y"]
+    offsetX = LabelOffset["X"]
 
     def clearAll():
         do.clearAll(values_insert)
@@ -22,14 +26,14 @@ else:
     def createWindow(window_param):
         sub_form = do.make_main(window_param)
 
-        do.make_buttons(sub_form, btn_actions_insert, 200, 20, 100, 0)
-        do.make_labels(sub_form, labels_insert, 10, 10, 0, 30)
+        do.make_buttons(sub_form, btn_actions_insert, LefMidPos["X"], LefMidPos["Y"] + label_alignY, BtnOffset["X"], BtnOffset["Y"])
+        do.make_labels(sub_form, labels_insert, LeftUpPos["X"], LeftUpPos["Y"], offsetX, offsetY)
 
-        entry_clt = gui.Entry(sub_form, 90, 20)
-        entry_prd = gui.Entry(sub_form, 90, 50)
-        entry_err = gui.Entry(sub_form, 90, 80)
-        entry_cse = gui.Entry(sub_form, 90, 110)
-        entry_fix = gui.Entry(sub_form, 90, 140)
+        entry_clt = gui.Entry(sub_form, startX, startY + label_alignY)
+        entry_prd = gui.Entry(sub_form, startX, startY + EntryOffset["Y"] + + label_alignY)
+        entry_err = gui.Entry(sub_form, startX, startY + 2 * EntryOffset["Y"] + label_alignY, WidgetSize["Mid"])
+        entry_cse = gui.Entry(sub_form, startX, startY + 3 * EntryOffset["Y"] + label_alignY, WidgetSize["Long"])
+        entry_fix = gui.Entry(sub_form, startX, startY + 4 * EntryOffset["Y"] + label_alignY, WidgetSize["Long"])
         values_insert.append(entry_clt)
         values_insert.append(entry_prd)
         values_insert.append(entry_err)

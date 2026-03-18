@@ -1,7 +1,19 @@
-#db_filepath = r"C:\Work\KnowledgeBase.accdb"
 db_filepath = r"..\KnowledgeBase.accdb"
 bg_color = "#c2ccc6"
 label_font = ("Arial", 10)
 label_font_result = ("Arial", 9, "bold")
 main_window_size = "1200x600"
-sub_window_size = "600x400"
+sub_window_size = "500x300"
+
+#GUI coordinate system
+label_alignY = 10  #In Tkinker label looks misplaced vs other widgets
+
+LeftUpPos = {"X": 10, "Y": 10}
+LefMidPos = {"X": 10, "Y": 200}
+UpMidPos = {"X": 200, "Y": 10}
+
+LabelOffset = {"X": 0, "Y": 30}
+EntryOffset = {"X": 80, "Y": 30}
+BtnOffset = {"X": 90, "Y": 0}
+
+WidgetSize = {"Short": 70, "Mid": 150, "Long": 360}

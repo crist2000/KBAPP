@@ -1,5 +1,8 @@
+#Decorator classes for Tkinker widgets.
+
 import tkinter as tk
-from mainconst import *
+
+from gui.mainconst import WidgetSize
 
 if __name__ == '__main__':
     print("Not runnable file. Run mainform.py instead")
@@ -31,11 +34,10 @@ else:
     class Entry:
         entry = None
 
-        def __init__(self, window: object, x: int, y: int): #, font: tuple
+        def __init__(self, window: object, x: int, y: int, size = WidgetSize["Short"]): #, font: tuple
             self.entry = tk.Entry(window)
             self.entry.config(width=10, justify="left")
-            self.entry.place(x=x, y=y)
-            self.entry.place(x=x, y=y)
+            self.entry.place(x=x, y=y, width=size)
 
         def getText(self):
             return self.entry.get()

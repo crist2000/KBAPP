@@ -1,3 +1,5 @@
+#Operations with GUi
+
 import tkinter as tk
 import widgets as gui
 from mainconst import *

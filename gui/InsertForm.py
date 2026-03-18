@@ -1,39 +1,40 @@
-import widgets as gui
-import actions as do
+#INSERT sub window
+
+from .actions import *
 from dbops import *
-from mainconst import *
+from .mainconst import *
 
 if __name__ == '__main__':
     print("Not runnable file. Run mainform.py instead")
 else:
-    values_insert = []
+    values_insert = [] #to transfer entry objects between functions
     startY = LeftUpPos["Y"]
     startX = LeftUpPos["X"] + EntryOffset["X"]
     offsetY = LabelOffset["Y"]
     offsetX = LabelOffset["X"]
 
-    def clearAll():
-        do.clearAll(values_insert)
+    def doClear():
+        clearAll(values_insert)
 
     def doInsert():
-        sql = do.makeInsertSql(*values_insert)
+        sql = makeInsertSql(*values_insert)
         with dBops(ACCDB, db_filepath) as dbo:
             dbo.executeInsert(sql)
 
-    btn_actions_insert = {"Insert": doInsert, "Clear": clearAll}
+    btn_actions_insert = {"Insert": doInsert, "Clear": doClear}
     labels_insert = ["CLIENT", "PRODUCT", "ERROR", "CAUSE", "SOLUTION"]
 
     def createWindow(window_param):
-        sub_form = do.make_main(window_param)
+        sub_form = make_main(window_param)
 
-        do.make_buttons(sub_form, btn_actions_insert, LefMidPos["X"], LefMidPos["Y"] + label_alignY, BtnOffset["X"], BtnOffset["Y"])
-        do.make_labels(sub_form, labels_insert, LeftUpPos["X"], LeftUpPos["Y"], offsetX, offsetY)
+        make_buttons(sub_form, btn_actions_insert, LefMidPos["X"], LefMidPos["Y"] + label_alignY, BtnOffset["X"], BtnOffset["Y"])
+        make_labels(sub_form, labels_insert, LeftUpPos["X"], LeftUpPos["Y"], offsetX, offsetY)
 
-        entry_clt = gui.Entry(sub_form, startX, startY + label_alignY)
-        entry_prd = gui.Entry(sub_form, startX, startY + EntryOffset["Y"] + + label_alignY)
-        entry_err = gui.Entry(sub_form, startX, startY + 2 * EntryOffset["Y"] + label_alignY, WidgetSize["Mid"])
-        entry_cse = gui.Entry(sub_form, startX, startY + 3 * EntryOffset["Y"] + label_alignY, WidgetSize["Long"])
-        entry_fix = gui.Entry(sub_form, startX, startY + 4 * EntryOffset["Y"] + label_alignY, WidgetSize["Long"])
+        entry_clt = Entry(sub_form, startX, startY + label_alignY)
+        entry_prd = Entry(sub_form, startX, startY + EntryOffset["Y"] + + label_alignY)
+        entry_err = Entry(sub_form, startX, startY + 2 * EntryOffset["Y"] + label_alignY, WidgetSize["Mid"])
+        entry_cse = Entry(sub_form, startX, startY + 3 * EntryOffset["Y"] + label_alignY, WidgetSize["Long"])
+        entry_fix = Entry(sub_form, startX, startY + 4 * EntryOffset["Y"] + label_alignY, WidgetSize["Long"])
         values_insert.append(entry_clt)
         values_insert.append(entry_prd)
         values_insert.append(entry_err)

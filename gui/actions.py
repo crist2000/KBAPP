@@ -1,8 +1,9 @@
 #Operations with GUi
 
 import tkinter as tk
-import widgets as gui
-from mainconst import *
+#import widgets as gui
+from .mainconst import *
+from .widgets import *
 
 if __name__ == '__main__':
     print("Not runnable file. Run mainform.py instead")
@@ -20,18 +21,27 @@ else:
         except:
             print(f"Item{err} has no clear method")
 
-    def makeSql(entryClnt, entryErr):
-        cl = entryClnt.getText()
+    def makeSelectSql(entryClnt, entryPrd, entryErr):
+        clt = entryClnt.getText()
+        prd = entryPrd.getText()
         err = entryErr.getText()
 
-        if cl == '' and err == '':
+        if clt == '' and prd == '' and err == '':
             sql = sql_select_base
-        elif cl != '' and err == '':
-            sql = f"{sql_select_base} where Client like '%{cl}%'"
-        elif cl == '' and err != '':
+        elif clt != '' and prd == '' and err == '':
+            sql = f"{sql_select_base} where Client like '%{clt}%'"
+        elif clt == '' and prd == '' and err != '':
             sql = f"{sql_select_base} where Error like '%{err}%'"
+        elif clt == '' and prd != '' and err == '':
+            sql = f"{sql_select_base} where Product like '%{prd}%'"
+        elif clt != '' and prd == '' and err != '':
+            sql = f"{sql_select_base} where Client like '%{clt}%' and Error like '%{err}%'"
+        elif clt != '' and prd != '' and err == '':
+            sql = f"{sql_select_base} where Client like '%{clt}%' and Product like '%{prd}%'"
+        elif clt == '' and prd != '' and err != '':
+            sql = f"{sql_select_base} where Product like '%{prd}%' and Error like '%{err}%'"
         else:
-            sql = f"{sql_select_base} where Client like '%{cl}%' and Error like '%{err}%'"
+            sql = f"{sql_select_base} where Client like '%{clt}%' and Product like '%{prd}%' and Error like '%{err}%'"
 
         print("Executing SQL: " + sql)
         return sql
@@ -69,7 +79,7 @@ else:
         y = startY
 
         for key, value in button_dict.items():
-            gui.Button(form, key, bg_color, x, y, value)
+            Button(form, key, bg_color, x, y, value)
             x += offsetX
             y += offsetY
 
@@ -78,7 +88,7 @@ else:
         y = startY
 
         for value in label_list:
-            gui.Label(form, value, bg_color, x, y, label_font)
+            Label(form, value, bg_color, x, y, label_font)
             x += offsetX
             y += offsetY
 

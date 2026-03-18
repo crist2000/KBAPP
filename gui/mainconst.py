@@ -1,4 +1,5 @@
-db_filepath = r"..\KnowledgeBase.accdb"
+db_filepath = r".\KnowledgeBase.accdb"
+#db_filepath = r"C:\Work\KnowledgeBase.accdb"
 bg_color = "#c2ccc6"
 label_font = ("Arial", 10)
 label_font_result = ("Arial", 9, "bold")
@@ -16,4 +17,4 @@ LabelOffset = {"X": 0, "Y": 30}
 EntryOffset = {"X": 80, "Y": 30}
 BtnOffset = {"X": 90, "Y": 0}
 
-WidgetSize = {"Short": 70, "Mid": 150, "Long": 360}
+WidgetSize = {"Short": 70, "Mid": 150, "Long": 320}

@@ -19,7 +19,7 @@ else:
                 err = item
                 item.clear()
         except:
-            print(f"Item{err} has no clear method")
+            print(f"{APP}Item{err} has no clear method")
 
     def makeSelectSql(entryClnt, entryPrd, entryErr):
         clt = entryClnt.getText()
@@ -43,7 +43,7 @@ else:
         else:
             sql = f"{sql_select_base} where Client like '%{clt}%' and Product like '%{prd}%' and Error like '%{err}%'"
 
-        print("Executing SQL: " + sql)
+        print(f"{APP}Preparing SQL: " + sql)
         return sql
 
     def makeInsertSql(entryClnt, entryPrd, entryErr, entryCse, entryFix):
@@ -55,7 +55,7 @@ else:
 
         sql = f"{sql_insert_base}(Client, Product, Error, Cause, Solution) values('{clt}', '{prd}', '{err}', '{cse}', '{fix}')"
 
-        print("Executing SQL: " + sql)
+        print(f"{APP}Preparing SQL: " + sql)
         return sql
 
     def make_main(window_param):  # size:str, title:str, color:str, resizable = True

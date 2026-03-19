@@ -1,5 +1,6 @@
 import pyodbc as dba
 from fileops import fileExists
+from gui.mainconst import APP
 
 ACCDB = "accdb"
 MSSQL = "mssql"
@@ -25,7 +26,7 @@ else:
 
         def closeConnection(self):
             if self.cnx is not None:
-                print("Closing database connection")
+                print(f"{APP}Closing database connection")
                 self.cursor.close()
                 self.cnx.close()
 
@@ -37,17 +38,17 @@ else:
             self.dsn = self.__getdsn(dbtype)
 
             if self.dsn is not None:
-                print(self.dsn)
+                print(f"{APP}DSN found:{self.dsn}")
                 self.cnx = dba.connect(driver=self.dsn, dbq=filepath)
                 self.cursor = self.cnx.cursor()
             else:
-                print("Unsupported database type")
+                print(f"{APP}Unsupported database type")
                 return
 
         def executeSelect(self, query):
             try:
                 if self.cursor is None:
-                    print("Cursor is null. Query execution aborted")
+                    print(f"{APP}Cursor is null. Query execution aborted")
                     return []
                 else:
                     self.cursor.execute(query)
@@ -59,18 +60,18 @@ else:
                     return sql_result
 
             except:
-                print(f"{query} run failed. Check SQL statement")
+                print(f"{APP}{query} run failed. Check SQL statement")
 
         def executeInsert(self, query):
             try:
                 if self.cursor is None:
-                    print("Cursor is null. Query execution aborted")
+                    print(f"{APP}Cursor is null. Query execution aborted")
                 else:
                     self.cursor.execute(query)
                     self.cnx.commit()
 
             except:
-                print(f"{query} run failed. Check SQL statement")
+                print(f"{APP}{query} run failed. Check SQL statement")
 
         #to be used with the 'with' statement.
         def __enter__(self):

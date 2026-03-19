@@ -1,4 +1,5 @@
 #SQL response parser
+from .mainconst import *
 
 if __name__ == '__main__':
     print("Not runnable file. Run main.py instead")
@@ -46,4 +47,4 @@ else:
                 self.cause = ""
                 self.fix = ""
 
-                print("SQL raw data was not recognized. Data parsing failed.")
+                print(f"{APP}SQL raw data was not recognized. Data parsing failed.")

@@ -5,6 +5,7 @@ from .kbdata import *
 from .actions import *
 from .WindowParam import *
 from .InsertForm import createWindow
+from .mainconst import *
 
 #to transfer widget objects between functions
 lab_entry_list = []
@@ -20,11 +21,11 @@ def doSubmit():
 
     with dBops(ACCDB, db_filepath) as dbo:
         raw_data = kbData(dbo.executeSelect(sql))
-        lab_res_list[0].setTxt(raw_data.client)
-        lab_res_list[1].setTxt(raw_data.prod)
-        lab_res_list[2].setTxt(raw_data.error)
-        lab_res_list[3].setTxt(raw_data.cause)
-        lab_res_list[4].setTxt(raw_data.fix)
+        lab_res_list[ColIdx.clt.value].setTxt(raw_data.client)
+        lab_res_list[ColIdx.prd.value].setTxt(raw_data.prod)
+        lab_res_list[ColIdx.err.value].setTxt(raw_data.error)
+        lab_res_list[ColIdx.cse.value].setTxt(raw_data.cause)
+        lab_res_list[ColIdx.fix.value].setTxt(raw_data.fix)
 
 def createWindowInsert():
     createWindow(window_param_insert)

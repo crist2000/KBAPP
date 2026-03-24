@@ -1,7 +1,5 @@
 #Operations with GUi
 
-import tkinter as tk
-#import widgets as gui
 from .mainconst import *
 from .widgets import *
 
@@ -58,21 +56,19 @@ else:
         print(f"{APP}Preparing SQL: " + sql)
         return sql
 
-    def make_main(window_param):  # size:str, title:str, color:str, resizable = True
-        form = tk.Tk()
+    def make_window(window_param, isMain = True):
+        form = None
+
+        if isMain:
+            form = tk.Tk()
+        else:
+            form = tk.Toplevel()
+
         form.geometry(window_param.size)
         form.title(window_param.title)
         form.configure(background=window_param.color)
         form.resizable(window_param.resizable, window_param.resizable)
         return form
-
-    def make_sub(window_param):
-        top = tk.Toplevel()
-        top.title(window_param.title)
-        top.geometry(window_param.size)
-        top.configure(background=window_param.color)
-        top.resizable(window_param.resizable, window_param.resizable)
-        return top
 
     def make_buttons(form, button_dict, startX, startY, offsetX, offsetY):
         x = startX

@@ -37,31 +37,31 @@ window_param_main = WindowParam(main_window_size, "Knowledge Base", bg_color, Tr
 window_param_insert = WindowParam(sub_window_size, "Insert Data", bg_color, False)
 
 def makeMainForm():
-    main_form = make_main(window_param_main)
+    main_form = make_window(window_param_main)
 
     #GUI control elements
     startY = LeftUpPos["Y"]
     startX = LeftUpPos["X"]
 
-    make_labels(main_form, labels_main, startX, LeftUpPos["Y"], LabelOffset["X"], LabelOffset["Y"])
+    make_labels(main_form, labels_main, startX, startY, LabelOffset["X"], LabelOffset["Y"])
     make_buttons(main_form, btn_actions_main, UpMidPos["X"], UpMidPos["Y"] + label_alignY, BtnOffset["X"], BtnOffset["Y"])
 
-    entry_clt = Entry(main_form, startX + EntryOffset["X"], LeftUpPos["Y"] + label_alignY)
-    entry_prd = Entry(main_form, startX + EntryOffset["X"], LeftUpPos["Y"] + EntryOffset["Y"] + label_alignY)
-    entry_err = Entry(main_form, startX + EntryOffset["X"], LeftUpPos["Y"] + 2 * EntryOffset["Y"] + label_alignY)
+    entry_clt = Entry(main_form, startX + EntryOffset["X"], startY + label_alignY)
+    entry_prd = Entry(main_form, startX + EntryOffset["X"], startY + EntryOffset["Y"] + label_alignY)
+    entry_err = Entry(main_form, startX + EntryOffset["X"], startY + 2 * EntryOffset["Y"] + label_alignY)
     lab_entry_list.append(entry_clt)
     lab_entry_list.append(entry_prd)
     lab_entry_list.append(entry_err)
 
 #SQL result
-    x = LefMidPos["X"]
-    y = LefMidPos["Y"]
+    resX = LefMidPos["X"]
+    resY = LefMidPos["Y"]
 
-    lab_res_clt = Label(main_form, "", bg_color, x, y, label_font_result)
-    lab_res_prd = Label(main_form, "", bg_color, x + WidgetSize["Short"], y, label_font_result)
-    lab_res_err = Label(main_form, "", bg_color, x + WidgetSize["Mid"], y, label_font_result)
-    lab_res_cse = Label(main_form, "", bg_color, x + WidgetSize["Mid"] + WidgetSize["Long"], y, label_font_result)
-    lab_res_fix = Label(main_form, "", bg_color, x + WidgetSize["Mid"] + 2 * WidgetSize["Long"], y, label_font_result)
+    lab_res_clt = Label(main_form, "", bg_color, resX, resY, label_font_result)
+    lab_res_prd = Label(main_form, "", bg_color, resX + WidgetSize["Short"], resY, label_font_result)
+    lab_res_err = Label(main_form, "", bg_color, resX + WidgetSize["Mid"], resY, label_font_result)
+    lab_res_cse = Label(main_form, "", bg_color, resX + WidgetSize["Mid"] + WidgetSize["Long"], resY, label_font_result)
+    lab_res_fix = Label(main_form, "", bg_color, resX + WidgetSize["Mid"] + 2 * WidgetSize["Long"], resY, label_font_result)
     lab_res_list.append(lab_res_clt)
     lab_res_list.append(lab_res_prd)
     lab_res_list.append(lab_res_err)

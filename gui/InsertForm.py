@@ -15,10 +15,14 @@ else:
         clearAll(values_insert)
 
     def doInsert():
-        sql = makeInsertSql(*values_insert)
+        try:
+            sql = makeInsertSql(*values_insert)
 
-        with dBops(ACCDB, db_filepath) as dbo:
-            dbo.executeInsert(sql)
+            with dBops(ACCDB, db_filepath) as dbo:
+                dbo.executeInsert(sql)
+        except:
+            print(f"{APP}Data for makeSQL is invalid. Buffer list contains {len(values_insert)} items. Expected 5.")
+
 
     btn_actions_insert = {"Insert": doInsert, "Clear": doClear}
     labels_insert = ["CLIENT", "PRODUCT", "ERROR", "CAUSE", "SOLUTION"]

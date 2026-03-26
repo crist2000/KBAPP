@@ -14,7 +14,7 @@ else:
         __prd = []
         __err = []
         __cse = []
-        __fix =  []
+        __fix = []
 
         def __clearKBdata(self):
             self.__clt = []

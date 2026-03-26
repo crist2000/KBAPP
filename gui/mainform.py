@@ -17,15 +17,18 @@ def doClear():
     clearAll(lab_entry_list)
 
 def doSubmit():
-    sql = makeSelectSql(*lab_entry_list)
+    try:
+        sql = makeSelectSql(*lab_entry_list)
 
-    with dBops(ACCDB, db_filepath) as dbo:
-        raw_data = kbData(dbo.executeSelect(sql))
-        lab_res_list[ColIdx.clt.value].setTxt(raw_data.client)
-        lab_res_list[ColIdx.prd.value].setTxt(raw_data.prod)
-        lab_res_list[ColIdx.err.value].setTxt(raw_data.error)
-        lab_res_list[ColIdx.cse.value].setTxt(raw_data.cause)
-        lab_res_list[ColIdx.fix.value].setTxt(raw_data.fix)
+        with dBops(ACCDB, db_filepath) as dbo:
+            raw_data = kbData(dbo.executeSelect(sql))
+            lab_res_list[ColIdx.clt.value].setTxt(raw_data.client)
+            lab_res_list[ColIdx.prd.value].setTxt(raw_data.prod)
+            lab_res_list[ColIdx.err.value].setTxt(raw_data.error)
+            lab_res_list[ColIdx.cse.value].setTxt(raw_data.cause)
+            lab_res_list[ColIdx.fix.value].setTxt(raw_data.fix)
+    except:
+        print(f"{APP}Data for makeSQL is invalid. Buffer list contains {len(lab_entry_list)} items. Expected {len(labels_main)}.")
 
 def createWindowInsert():
     createWindow(window_param_insert)

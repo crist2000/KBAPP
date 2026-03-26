@@ -24,6 +24,7 @@ else:
     labels_insert = ["CLIENT", "PRODUCT", "ERROR", "CAUSE", "SOLUTION"]
 
     def createWindow(window_param):
+        values_insert.clear()
         sub_form = make_window(window_param, False)
 
         make_buttons(sub_form, btn_actions_insert, LefMidPos["X"], LefMidPos["Y"] + label_alignY, BtnOffset["X"], BtnOffset["Y"])

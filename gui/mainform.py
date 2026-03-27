@@ -9,26 +9,23 @@ from .mainconst import *
 
 #to transfer widget objects between functions
 lab_entry_list = []
-lab_res_list = []
-
+lab_res_txt = []
+main_form = None
 
 def doClear():
-    clearAll(lab_res_list)
     clearAll(lab_entry_list)
+    clearAll(lab_res_txt)
 
 def doSubmit():
-    try:
-        sql = makeSelectSql(*lab_entry_list)
+    sql = makeSelectSql(*lab_entry_list)
 
-        with dBops(ACCDB, db_filepath) as dbo:
-            raw_data = kbData(dbo.executeSelect(sql))
-            lab_res_list[ColIdx.clt.value].setTxt(raw_data.client)
-            lab_res_list[ColIdx.prd.value].setTxt(raw_data.prod)
-            lab_res_list[ColIdx.err.value].setTxt(raw_data.error)
-            lab_res_list[ColIdx.cse.value].setTxt(raw_data.cause)
-            lab_res_list[ColIdx.fix.value].setTxt(raw_data.fix)
-    except:
-        print(f"{APP}Data for makeSQL is invalid. Buffer list contains {len(lab_entry_list)} items. Expected {len(labels_main)}.")
+    with dBops(ACCDB, db_filepath) as dbo:
+        raw_data = kbData(dbo.executeSelect(sql))
+        clearAll(lab_res_txt)
+
+        for i in range(len(raw_data.clt)):
+            res = f"{raw_data.clt[i]}   {raw_data.prd[i]}   <{raw_data.err[i]}> <{raw_data.cse[i]}> <{raw_data.fix[i]}>\n"
+            lab_res_txt[0].setText(res)
 
 def createWindowInsert():
     createWindow(window_param_insert)
@@ -49,26 +46,14 @@ def makeMainForm():
     make_labels(main_form, labels_main, startX, startY, LabelOffset["X"], LabelOffset["Y"])
     make_buttons(main_form, btn_actions_main, UpMidPos["X"], UpMidPos["Y"] + label_alignY, BtnOffset["X"], BtnOffset["Y"])
 
+    txt_ltn = Text(main_form, bg_color, 15, 200, font_result)
+    lab_res_txt.append(txt_ltn)
+
     entry_clt = Entry(main_form, startX + EntryOffset["X"], startY + label_alignY)
     entry_prd = Entry(main_form, startX + EntryOffset["X"], startY + EntryOffset["Y"] + label_alignY)
     entry_err = Entry(main_form, startX + EntryOffset["X"], startY + 2 * EntryOffset["Y"] + label_alignY)
     lab_entry_list.append(entry_clt)
     lab_entry_list.append(entry_prd)
     lab_entry_list.append(entry_err)
-
-#SQL result
-    resX = LefMidPos["X"]
-    resY = LefMidPos["Y"]
-
-    lab_res_clt = Label(main_form, "", bg_color, resX, resY, label_font_result)
-    lab_res_prd = Label(main_form, "", bg_color, resX + WidgetSize["Short"], resY, label_font_result)
-    lab_res_err = Label(main_form, "", bg_color, resX + WidgetSize["Mid"], resY, label_font_result)
-    lab_res_cse = Label(main_form, "", bg_color, resX + WidgetSize["Mid"] + WidgetSize["Long"], resY, label_font_result)
-    lab_res_fix = Label(main_form, "", bg_color, resX + WidgetSize["Mid"] + 2 * WidgetSize["Long"], resY, label_font_result)
-    lab_res_list.append(lab_res_clt)
-    lab_res_list.append(lab_res_prd)
-    lab_res_list.append(lab_res_err)
-    lab_res_list.append(lab_res_cse)
-    lab_res_list.append(lab_res_fix)
 
     main_form.mainloop()

@@ -44,3 +44,30 @@ else:
 
         def clear(self):
             self.entry.delete(0, 'end')
+
+    class Text:
+        text = None
+        count = 0
+
+        def char_count(self, dummy: str):
+            str_cur = self.getText()
+            strlen = len(str_cur)
+
+        def __init__(self, window: object, bgcolor: str, x: int, y: int, font: tuple):
+            self.text = tk.Text(window, height= 25, width= 180, font= font, bg= bgcolor, bd= 0)
+            self.text.configure(state='normal')
+            self.text.place(x=x, y=y)
+            #self.text.bind('<KeyPress>', self.char_count)
+            #self.text.bind('<KeyRelease>', self.char_count)
+
+        def getText(self):
+            return self.text.get("1.0", tk.END)
+
+        def setText(self, txt: str):
+            self.text.insert(tk.END, txt)
+
+        def clear(self):
+            self.text.delete("1.0", 'end')
+
+        def bingkey(self, key : str, action: callable):
+            self.text.bind(key, action)
